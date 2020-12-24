@@ -1,0 +1,351 @@
+{
+  "version": "experimental",
+  "tags": [
+    {
+      "name": "arc-websocket-editor",
+      "path": "./arc-websocket-editor.js",
+      "attributes": [
+        {
+          "name": "url",
+          "description": "Current request URL",
+          "type": "string"
+        },
+        {
+          "name": "requestId",
+          "description": "Generated request ID when the connection is being initiated. This value is reported\nin send and abort events.\n\nThe `requestId` property is regenerated each time the `reset()` function is called.",
+          "type": "string"
+        },
+        {
+          "name": "readOnly",
+          "description": "When set the editor is in read only mode.",
+          "type": "boolean"
+        },
+        {
+          "name": "compatibility",
+          "description": "Enables compatibility with Anypoint platform",
+          "type": "boolean"
+        },
+        {
+          "name": "outlined",
+          "description": "Enables material's outlined theme for inputs.",
+          "type": "boolean"
+        },
+        {
+          "name": "selectedTab",
+          "description": "An index of currently opened tab.",
+          "type": "number",
+          "default": "\"0\""
+        },
+        {
+          "name": "connected",
+          "description": "This is to be set to indicate that the connection has been made.\nThe internal logic does not alter this value. This is to reflect the state.",
+          "type": "boolean"
+        },
+        {
+          "name": "invalid",
+          "description": "Set upon calling `validate()`, when the request is invalid.",
+          "type": "boolean"
+        },
+        {
+          "name": "mimeType",
+          "description": "The mime type of the body editor.",
+          "type": "string"
+        }
+      ],
+      "properties": [
+        {
+          "name": "url",
+          "attribute": "url",
+          "description": "Current request URL",
+          "type": "string"
+        },
+        {
+          "name": "requestId",
+          "attribute": "requestId",
+          "description": "Generated request ID when the connection is being initiated. This value is reported\nin send and abort events.\n\nThe `requestId` property is regenerated each time the `reset()` function is called.",
+          "type": "string"
+        },
+        {
+          "name": "readOnly",
+          "attribute": "readOnly",
+          "description": "When set the editor is in read only mode.",
+          "type": "boolean"
+        },
+        {
+          "name": "compatibility",
+          "attribute": "compatibility",
+          "description": "Enables compatibility with Anypoint platform",
+          "type": "boolean"
+        },
+        {
+          "name": "outlined",
+          "attribute": "outlined",
+          "description": "Enables material's outlined theme for inputs.",
+          "type": "boolean"
+        },
+        {
+          "name": "selectedTab",
+          "attribute": "selectedTab",
+          "description": "An index of currently opened tab.",
+          "type": "number",
+          "default": "\"0\""
+        },
+        {
+          "name": "connected",
+          "attribute": "connected",
+          "description": "This is to be set to indicate that the connection has been made.\nThe internal logic does not alter this value. This is to reflect the state.",
+          "type": "boolean"
+        },
+        {
+          "name": "invalid",
+          "attribute": "invalid",
+          "description": "Set upon calling `validate()`, when the request is invalid.",
+          "type": "boolean"
+        },
+        {
+          "name": "payload",
+          "description": "The current message to send.",
+          "type": "string | File | Blob | ArrayBuffer | undefined"
+        },
+        {
+          "name": "uiConfig",
+          "description": "The editors configuration meta data",
+          "type": "WebsocketRequestUiMeta | undefined"
+        },
+        {
+          "name": "mimeType",
+          "attribute": "mimeType",
+          "description": "The mime type of the body editor.",
+          "type": "string"
+        },
+        {
+          "name": "eventsTarget",
+          "description": "By default the element listens on the `window` object. If this value is set,\nthen all events listeners will be attached to this object instead of `window`.",
+          "type": "EventTarget"
+        }
+      ],
+      "events": [
+        {
+          "name": "resize",
+          "description": "Dispatched when the element should re-layout itself."
+        }
+      ]
+    },
+    {
+      "name": "arc-websocket-logs",
+      "path": "./arc-websocket-logs.js",
+      "description": "An element that renders results panel of the web socket connection.",
+      "attributes": [
+        {
+          "name": "selected",
+          "description": "The currently selected panel",
+          "type": "string"
+        },
+        {
+          "name": "compatibility",
+          "description": "Adds a compatibility with Anypoint styling",
+          "type": "boolean"
+        },
+        {
+          "name": "forceRawSize",
+          "description": "The size of a response that triggers \"raw\" view by default.",
+          "type": "number | undefined"
+        },
+        {
+          "name": "warningResponseMaxSize",
+          "description": "The size of a response, in KB, that triggers warning message instead of showing the response.",
+          "type": "number | undefined"
+        },
+        {
+          "name": "types",
+          "description": "The list of coma separated names of the editors to enable.\nThis must be the list of `id` values from the available editors.\nPossible values: `response,timings,headers,redirects,raw`",
+          "type": "string | undefined"
+        }
+      ],
+      "properties": [
+        {
+          "name": "connectionResult",
+          "description": "The web socket connection result.",
+          "type": "WebsocketConnectionResult"
+        },
+        {
+          "name": "styles",
+          "type": "CSSResult"
+        },
+        {
+          "name": "response",
+          "description": "ARC HTTP response object",
+          "type": "Response | ErrorResponse"
+        },
+        {
+          "name": "request",
+          "description": "ARC HTTP request object",
+          "type": "TransportRequest"
+        },
+        {
+          "name": "active",
+          "description": "A list of active panels (in order) rendered in the tabs.",
+          "type": "string[]"
+        },
+        {
+          "name": "selected",
+          "attribute": "selected",
+          "description": "The currently selected panel",
+          "type": "string"
+        },
+        {
+          "name": "compatibility",
+          "attribute": "compatibility",
+          "description": "Adds a compatibility with Anypoint styling",
+          "type": "boolean"
+        },
+        {
+          "name": "forceRawSize",
+          "attribute": "forceRawSize",
+          "description": "The size of a response that triggers \"raw\" view by default.",
+          "type": "number | undefined"
+        },
+        {
+          "name": "warningResponseMaxSize",
+          "attribute": "warningResponseMaxSize",
+          "description": "The size of a response, in KB, that triggers warning message instead of showing the response.",
+          "type": "number | undefined"
+        },
+        {
+          "name": "hasResponse",
+          "description": "Tests whether the response is set",
+          "type": "boolean"
+        },
+        {
+          "name": "types",
+          "attribute": "types",
+          "description": "The list of coma separated names of the editors to enable.\nThis must be the list of `id` values from the available editors.\nPossible values: `response,timings,headers,redirects,raw`",
+          "type": "string | undefined"
+        },
+        {
+          "name": "effectivePanels",
+          "type": "ResponsePanel[]"
+        }
+      ],
+      "events": [
+        {
+          "name": "activechange",
+          "description": "When a list of active panels change"
+        },
+        {
+          "name": "selectedchange",
+          "description": "When a list of active panels change"
+        },
+        {
+          "name": "clear",
+          "description": "Dispatched when the user press the `clear` button."
+        }
+      ]
+    },
+    {
+      "name": "arc-websocket-panel",
+      "path": "./arc-websocket-panel.js",
+      "attributes": [
+        {
+          "name": "loading",
+          "description": "Computed value. If true then the request is loading.\nThis resets each time the request status changes.",
+          "type": "boolean"
+        },
+        {
+          "name": "compatibility",
+          "description": "Enables compatibility with Anypoint platform",
+          "type": "boolean"
+        },
+        {
+          "name": "outlined",
+          "description": "Enables material's outlined theme for inputs.",
+          "type": "boolean"
+        },
+        {
+          "name": "exportOptionsOpened",
+          "description": "Indicates that the export options panel is currently rendered.",
+          "type": "boolean"
+        },
+        {
+          "name": "boundEvents",
+          "description": "When set it sets `eventsTarget` to itself and all editor event\nlisteners starts listening on this node.\nThis prohibits editors from getting data from the outside ot this\ncomponent.",
+          "type": "boolean"
+        },
+        {
+          "name": "editorHeight",
+          "description": "This value is set after resizing the panels in the UI. Once set it removes \nflex value from the editor and sets its height to this value.",
+          "type": "number"
+        }
+      ],
+      "properties": [
+        {
+          "name": "editorRequest",
+          "description": "The ARC request object",
+          "type": "WebsocketEditorRequest"
+        },
+        {
+          "name": "result",
+          "description": "The connection result log",
+          "type": "WebsocketConnectionResult"
+        },
+        {
+          "name": "loading",
+          "attribute": "loading",
+          "description": "Computed value. If true then the request is loading.\nThis resets each time the request status changes.",
+          "type": "boolean"
+        },
+        {
+          "name": "compatibility",
+          "attribute": "compatibility",
+          "description": "Enables compatibility with Anypoint platform",
+          "type": "boolean"
+        },
+        {
+          "name": "outlined",
+          "attribute": "outlined",
+          "description": "Enables material's outlined theme for inputs.",
+          "type": "boolean"
+        },
+        {
+          "name": "exportOptionsOpened",
+          "attribute": "exportOptionsOpened",
+          "description": "Indicates that the export options panel is currently rendered.",
+          "type": "boolean"
+        },
+        {
+          "name": "boundEvents",
+          "attribute": "boundEvents",
+          "description": "When set it sets `eventsTarget` to itself and all editor event\nlisteners starts listening on this node.\nThis prohibits editors from getting data from the outside ot this\ncomponent.",
+          "type": "boolean"
+        },
+        {
+          "name": "editorHeight",
+          "attribute": "editorHeight",
+          "description": "This value is set after resizing the panels in the UI. Once set it removes \nflex value from the editor and sets its height to this value.",
+          "type": "number"
+        },
+        {
+          "name": "editor",
+          "description": "Reference to ArcWebsocketEditorElement element.",
+          "type": "ArcWebsocketEditorElement"
+        },
+        {
+          "name": "connected",
+          "description": "True when the connection is made and it is possible to send a message.",
+          "type": "boolean"
+        },
+        {
+          "name": "eventsTarget",
+          "description": "By default the element listens on the `window` object. If this value is set,\nthen all events listeners will be attached to this object instead of `window`.",
+          "type": "EventTarget"
+        }
+      ],
+      "events": [
+        {
+          "name": "resize",
+          "description": "Dispatched when the element should re-layout itself."
+        }
+      ]
+    }
+  ]
+}

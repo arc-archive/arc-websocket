@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "esnext",
+    "moduleResolution": "node",
+    "lib": ["es2017", "dom"],
+    "allowJs": true,
+    "checkJs": true,
+    "noEmit": true,
+    "strict": false,
+    "noImplicitThis": true,
+    "alwaysStrict": true,
+    "esModuleInterop": true,
+    "plugins": [
+      {
+        "name": "typescript-lit-html-plugin"
+      }
+    ]
+  },
+  "include": [
+    "**/*.js",
+    "node_modules/@open-wc/**/*.js", "src/RequestMetaDetailsElement.d.ts", "src/RequestMetaEditorElement.d.ts", "index.d.ts", "arc-request-editor.d.ts", "arc-request-config.d.ts", "src/ArcRequestEditorElement.d.ts", "src/ArcRequestPanelElement.d.ts", "src/ArcRequestConfigElement.d.ts", "arc-request-workspace.d.ts", "workspace-tabs.d.ts", "workspace-tab.d.ts", "src/WorkspaceTabsElement.d.ts", "src/WorkspaceTabElement.d.ts", "src/ArcRequestWorkspaceElement.d.ts", "src/ArcWebsocketEditorElement.d.ts", "src/ArcWebsocketLogsElement.d.ts", "src/ArcWebsocketPanelElement.d.ts"],
+  "exclude": [
+    "node_modules/!(@open-wc)"
+  ]
+}
