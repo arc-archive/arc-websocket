@@ -357,8 +357,12 @@ export class ArcWebsocketPanelElement extends ArcResizableMixin(EventsTargetMixi
   [connectHandler](e) {
     const { request } = e.detail;
     this.loading = true;
-    this[connect](request.url);
-    ArcModelEvents.WSUrlHistory.insert(this, request.url);
+    try {
+      this[connect](request.url);
+      ArcModelEvents.WSUrlHistory.insert(this, request.url);
+    } catch (cause) {
+      this.loading = false;
+    }
   }
 
   [disconnectHandler]() {
