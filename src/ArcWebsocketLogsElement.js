@@ -37,10 +37,11 @@ export const viewModel = Symbol('viewModel');
  */
 // @ts-ignore
 export class ArcWebsocketLogsElement extends ResponseViewElement {
-  static get styles() {
+  // @ts-ignore
+  get styles() {
     return [
       elementStyles,
-      ResponseViewElement.styles,
+      super.styles,
     ];
   }
 

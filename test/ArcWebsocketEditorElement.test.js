@@ -1,5 +1,5 @@
 import { fixture, assert, html } from '@open-wc/testing';
-import './monaco-loader.js';
+import { loadMonaco } from './MonacoSetup.js';
 import '../arc-websocket-editor.js';
 
 /** @typedef {import('../index').ArcWebsocketEditorElement} ArcWebsocketEditorElement */
@@ -12,16 +12,7 @@ describe('ArcWebsocketEditorElement', () => {
     return fixture(html`<arc-websocket-editor></arc-websocket-editor>`);
   }
 
-  let interval;
-  before((done) => {
-    interval = setInterval(() => {
-      // @ts-ignore
-      if (window.monaco) {
-        clearInterval(interval);
-        done();
-      }
-    }, 20);
-  });
+  before(async () => loadMonaco());
 
   describe('constructor()', () => {
     let element = /** @type ArcWebsocketEditorElement */ (null);

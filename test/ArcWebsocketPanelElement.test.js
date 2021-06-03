@@ -1,4 +1,5 @@
 import { fixture, assert, html } from '@open-wc/testing';
+import { loadMonaco } from './MonacoSetup.js';
 import '../arc-websocket-panel.js';
 
 /** @typedef {import('../index').ArcWebsocketPanelElement} ArcWebsocketPanelElement */
@@ -10,6 +11,8 @@ describe('ArcWebsocketPanelElement', () => {
   async function basicFixture() {
     return fixture(html`<arc-websocket-panel></arc-websocket-panel>`);
   }
+
+  before(async () => loadMonaco());
 
   describe('constructor()', () => {
     let element = /** @type ArcWebsocketPanelElement */ (null);
