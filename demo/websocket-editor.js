@@ -6,7 +6,7 @@ import '@anypoint-web-components/anypoint-checkbox/anypoint-checkbox.js';
 import '@advanced-rest-client/arc-models/websocket-url-history-model.js';
 import { ExportHandlerMixin } from '@advanced-rest-client/arc-demo-helper/src/ExportHandlerMixin.js';
 import encodingHelper from '@advanced-rest-client/arc-demo-helper/src/EncodingHelpers.js';
-import { DataGenerator } from '@advanced-rest-client/arc-data-generator';
+import { ArcMock } from '@advanced-rest-client/arc-data-generator';
 import { ImportEvents, ArcModelEvents } from '@advanced-rest-client/arc-events';
 import { MonacoLoader } from '@advanced-rest-client/monaco-support';
 import { BodyProcessor } from '@advanced-rest-client/body-editor';
@@ -40,7 +40,7 @@ class ComponentDemo extends ExportHandlerMixin(DemoPage) {
         kind: 'ARC#WebsocketRequest',
       },
     };
-    this.generator = new DataGenerator();
+    this.generator = new ArcMock();
     
     this.generateData = this.generateData.bind(this);
     this.deleteData = this.deleteData.bind(this);
@@ -64,12 +64,12 @@ class ComponentDemo extends ExportHandlerMixin(DemoPage) {
   }
 
   async generateData() {
-    await this.generator.insertWebsocketData();
+    await this.generator.store.insertWebsockets();
     ImportEvents.dataImported(document.body);
   }
 
   async deleteData() {
-    await this.generator.destroyWebsocketsData();
+    await this.generator.store.destroyWebsockets();
     ArcModelEvents.destroyed(document.body, 'all');
   }
 
