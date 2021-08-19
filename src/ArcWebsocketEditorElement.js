@@ -101,6 +101,11 @@ export class ArcWebsocketEditorElement extends ArcResizableMixin(EventsTargetMix
        */
       connected: { type: Boolean },
       /** 
+       * This is to be set to indicate that the connection is being made.
+       * The internal logic does not alter this value. This is to reflect the state.
+       */
+      connecting: { type: Boolean },
+      /** 
        * Set upon calling `validate()`, when the request is invalid.
        */
       invalid: { type: Boolean, reflect: true },
@@ -124,6 +129,7 @@ export class ArcWebsocketEditorElement extends ArcResizableMixin(EventsTargetMix
     this.reset();
     this.selectedTab = 0;
     this.connected = false;
+    this.connecting = false;
     this.readOnly = false;
     this.compatibility = false;
     this.outlined = false;
@@ -162,7 +168,7 @@ export class ArcWebsocketEditorElement extends ArcResizableMixin(EventsTargetMix
    */
   [internalSendHandler](e) {
     e.stopPropagation();
-    if (!this.connected) {
+    if (!this.connected && !this.connecting) {
       this.connect();
     } else {
       this.send();
@@ -174,7 +180,7 @@ export class ArcWebsocketEditorElement extends ArcResizableMixin(EventsTargetMix
    */
   [keydownHandler](e) {
     if (e.ctrlKey && e.code === 'Enter') {
-      if (!this.connected) {
+      if (!this.connected && !this.connecting) {
         this.connect();
       } else {
         this.send();
@@ -255,7 +261,7 @@ export class ArcWebsocketEditorElement extends ArcResizableMixin(EventsTargetMix
    * It does nothing when not connected.
    */
   disconnect() {
-    if (!this.connected) {
+    if (!this.connected && !this.connecting) {
       return;
     }
     const request = this.serialize();
@@ -518,8 +524,8 @@ export class ArcWebsocketEditorElement extends ArcResizableMixin(EventsTargetMix
   }
 
   [connectTemplate]() {
-    const { connected, compatibility } = this;
-    if (connected) {
+    const { connected, connecting, compatibility } = this;
+    if (connected || connecting) {
       return html`
       <anypoint-button aria-label="Activate to disconnect from the server" @click="${this.disconnect}" ?compatibility="${compatibility}">Disconnect</anypoint-button>
       `;
@@ -599,7 +605,7 @@ export class ArcWebsocketEditorElement extends ArcResizableMixin(EventsTargetMix
     <anypoint-icon-button 
       ?compatibility="${this.compatibility}" 
       title="Send the message" 
-      ?disabled="${!this.connected}"
+      ?disabled="${!this.connected && !this.connecting}"
       @click="${this.send}"
       emphasis="medium"
       tabindex="0"

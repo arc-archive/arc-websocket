@@ -12,6 +12,7 @@ import { MonacoLoader } from '@advanced-rest-client/monaco-support';
 import { BodyProcessor } from '@advanced-rest-client/body-editor';
 import { v4 } from '@advanced-rest-client/uuid-generator';
 import '../arc-websocket-panel.js';
+import env from './env.js';
 
 /** @typedef {import('@advanced-rest-client/arc-types').WebSocket.WebsocketEditorRequest} WebsocketEditorRequest */
 /** @typedef {import('@advanced-rest-client/arc-types').WebSocket.WebsocketConnectionResult} WebsocketConnectionResult */
@@ -187,7 +188,9 @@ class ComponentDemo extends ExportHandlerMixin(DemoPage) {
         <p>
           This demo lets you preview the web socket request panel element with various configuration options.
         </p>
-
+        <p>
+          Demo web socket server is running: <b>ws://localhost:${env.port}</b>
+        </p>
         <arc-interactive-demo
           .states="${demoStates}"
           @state-changed="${this._demoStateHandler}"

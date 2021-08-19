@@ -79,6 +79,12 @@ export declare class ArcWebsocketEditorElement extends ArcResizableMixin(EventsT
    */
   connected: boolean;
   /** 
+   * This is to be set to indicate that the connection is being made.
+   * The internal logic does not alter this value. This is to reflect the state.
+   * @attribute
+   */
+  connecting: boolean;
+  /** 
    * Set upon calling `validate()`, when the request is invalid.
    * @attribute
    */

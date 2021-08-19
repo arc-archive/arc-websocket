@@ -225,7 +225,7 @@ export class ArcWebsocketPanelElement extends ArcResizableMixin(EventsTargetMixi
   }
 
   [notifyChange]() {
-    this.dispatchEvent(new CustomEvent('change'));
+    this.dispatchEvent(new Event('change'));
   }
 
   /**
@@ -348,6 +348,7 @@ export class ArcWebsocketPanelElement extends ArcResizableMixin(EventsTargetMixi
     const body = /** @type string|Blob|ArrayBuffer */ (request.payload);
     this[connectionValue].send(body);
     this[appendMessage]('out', body);
+    this.dispatchEvent(new Event('sent'));
   }
 
   /**
@@ -371,6 +372,9 @@ export class ArcWebsocketPanelElement extends ArcResizableMixin(EventsTargetMixi
     this[connectionValue].close();
   }
 
+  /**
+   * @param {string} url
+   */
   [connect](url) {
     const socket = new WebSocket(url);
     socket.addEventListener('open', this[connectionOpened]);
@@ -384,20 +388,29 @@ export class ArcWebsocketPanelElement extends ArcResizableMixin(EventsTargetMixi
     this[connectedValue] = true;
     this.loading = false;
     this[createConnectionResult]();
+    this.requestUpdate();
+    this.dispatchEvent(new Event('connected'));
   }
 
   [connectionClosed]() {
     this.loading = false;
     this[connectedValue] = false;
     const socket = this[connectionValue];
+    if (!socket) {
+      this.requestUpdate();
+      return;
+    }
     socket.removeEventListener('open', this[connectionOpened]);
     socket.removeEventListener('close', this[connectionClosed]);
     socket.removeEventListener('message', this[connectionMessage]);
     socket.removeEventListener('error', this[connectionError]);
     this[connectionValue] = undefined;
     this.requestUpdate();
-    this.result.closed = Date.now();
+    if (this.result) {
+      this.result.closed = Date.now();
+    }
     this[notifyChange]();
+    this.dispatchEvent(new Event('disconnected'));
   }
 
   /**
@@ -405,15 +418,19 @@ export class ArcWebsocketPanelElement extends ArcResizableMixin(EventsTargetMixi
    */
   [connectionMessage](e) {
     this[appendMessage]('in', e.data);
+    this.dispatchEvent(new Event('message'));
   }
 
   [connectionError]() {
     this.loading = false;
     this[connectedValue] = false;
-    this.result.closed = Date.now();
+    if (this.result) {
+      this.result.closed = Date.now();
+    }
     this[connectionValue].close();
     this.requestUpdate();
     this[notifyChange]();
+    this.dispatchEvent(new Event('disconnected'));
   }
 
   [createConnectionResult]() {
@@ -479,11 +496,12 @@ export class ArcWebsocketPanelElement extends ArcResizableMixin(EventsTargetMixi
    * @returns {TemplateResult} The template for the request editor view
    */
   [requestEditorTemplate]() {
-    const { compatibility, connected, editorHeight } = this;
+    const { compatibility, connected, loading, editorHeight } = this;
     const editorRequest = /** @type WebsocketEditorRequest */ (this.editorRequest || {});
     const { id } = editorRequest;
     const request = /** @type WebsocketRequest */ (editorRequest.request || {});
-    const { url, payload, ui } = request;
+    const { url, ui } = request;
+    const body = /** @type string | Blob | File | ArrayBuffer */ request.payload;
 
     const hasHeight = typeof editorHeight === 'number';
     const classes = {
@@ -504,8 +522,9 @@ export class ArcWebsocketPanelElement extends ArcResizableMixin(EventsTargetMixi
       .requestId="${id}"
       .url="${url}"
       .uiConfig="${ui}"
-      .payload="${payload}"
+      .payload="${body}"
       .connected="${connected}"
+      .connecting="${loading}"
       class="${classMap(classes)}"
       style="${styleMap(styles)}"
       @change="${this[requestChangeHandler]}"
