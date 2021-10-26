@@ -36,6 +36,9 @@ export declare const createConnectionResult: unique symbol;
 export declare const appendMessage: unique symbol;
 export declare const resultClearHandler: unique symbol;
 
+/**
+ * @deprecated Use `@advanced-rest-client/app` instead.
+ */
 export class ArcWebsocketPanelElement extends ArcResizableMixin(EventsTargetMixin(LitElement)) {
   static get styles(): CSSResult[];
 

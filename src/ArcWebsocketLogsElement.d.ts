@@ -17,6 +17,7 @@ export declare const viewModel: unique symbol;
 
 /**
  * An element that renders results panel of the web socket connection.
+ * @deprecated Use `@advanced-rest-client/app` instead.
  */
 export declare class ArcWebsocketLogsElement extends ResponseViewElement {
   static get styles(): CSSResult;

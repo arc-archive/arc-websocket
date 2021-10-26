@@ -1,4 +1,8 @@
-# ARC web socket
+# Deprecated
+
+This component is deprecated. Use `@advanced-rest-client/app` instead.
+
+----
 
 This module contains all UIs related to Advanced REST Client web socket requests. It offers a web socket request editor, web socket logs viewer, and web socket panel that is part of ARC workspace.
 

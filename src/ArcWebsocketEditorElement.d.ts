@@ -33,6 +33,9 @@ export declare const editorMimeHandler: unique symbol;
 export declare const sendTemplate: unique symbol;
 export declare const keydownHandler: unique symbol;
 
+/**
+ * @deprecated Use `@advanced-rest-client/app` instead.
+ */
 export declare class ArcWebsocketEditorElement extends ArcResizableMixin(EventsTargetMixin(LitElement)) {
   static get styles(): CSSResult[];
 
